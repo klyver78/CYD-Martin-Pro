@@ -1,0 +1,13 @@
+{
+  "id": "space-game",
+  "title": "Star Ring (space game)",
+  "summary": "Game prototype: orbit a ring, auto-fire at enemies flying out of the starfield. TFT_eSPI 80 MHz.",
+  "roms": [
+    {
+      "id": "game",
+      "env": "game",
+      "name": "Star Ring",
+      "desc": "Game prototype, TFT_eSPI 80 MHz + DMA"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ lives in its own folder, has its own web flasher on GitHub Pages and can contain
 | Experiment | What it tests |
 |---|---|
 | [animation-experiment](animation-experiment/) | Realistic frame rates with TFT_eSPI, LovyanGFX and LVGL: raw throughput, sprites, full-frame effects, UI animation. Switch ROMs over the air from the device. |
+| [space-game](space-game/) | *Star Ring*: a space-game prototype. Orbit a ring, auto-fire at two kinds of enemies flying out of the starfield. TFT_eSPI 80 MHz. |
 
 ## How the pipeline works
 
