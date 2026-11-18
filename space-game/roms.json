@@ -1,7 +1,7 @@
 {
   "id": "space-game",
   "title": "Star Ring (space game)",
-  "summary": "Game prototype: orbit a ring, auto-fire at enemies flying out of the starfield. TFT_eSPI 80 MHz.",
+  "summary": "Game prototype: orbit a ring, shoot enemies flying out of the starfield, catch power-ups. TFT_eSPI 80 MHz.",
   "roms": [
     {
       "id": "game",

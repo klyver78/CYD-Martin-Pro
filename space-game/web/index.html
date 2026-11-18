@@ -61,8 +61,8 @@
     <span class="badge">ESP32-2432S028R</span>
     <h1>Star Ring</h1>
     <p class="lead">A space-game prototype for the Cheap Yellow Display. Your ship orbits a ring and always points
-      at the centre, where enemies come flying out of the starfield towards you. The ship fires by itself,
-      so you have to orbit to line up your shots.</p>
+      at the centre, where enemies come flying out of the starfield towards you. Hold the middle of the
+      screen to fire, and catch power-ups for better weapons.</p>
     <p><img src="docs/play.png" alt="Gameplay" style="width:100%;border-radius:12px;border:1px solid var(--line)"></p>
 
     <div class="card">
@@ -93,11 +93,13 @@
     <div class="card">
       <h2>How to play</h2>
       <table>
-        <tr><th>Control</th><td>Hold the <b>left half</b> of the screen to orbit counter-clockwise and the <b>right half</b> to orbit clockwise.</td></tr>
-        <tr><th>Weapon</th><td>Auto fire, straight at the centre.</td></tr>
+        <tr><th>Controls</th><td>Hold the <b>left third</b> of the screen to orbit counter-clockwise, the <b>right third</b> to orbit clockwise, and the <b>middle</b> to fire.</td></tr>
+        <tr><th>Shield</th><td>Enemies are shielded near the centre (inner dotted circle, drawn dark). You have to get under their path once they're out.</td></tr>
         <tr><th>Saucer</th><td>Orange. Flies straight out to its target point on the ring. 1 hit, 100 points.</td></tr>
         <tr><th>Spinner</th><td>Green, rotating. Spirals out to its target point. 2 hits, 250 points.</td></tr>
-        <tr><th>Lives</th><td>3. You lose one when an enemy reaches the ring where your ship is. It gets faster over time.</td></tr>
+        <tr><th>Power-ups</th><td><b>S</b> Spread (3 shots, 15 s) · <b>L</b> Laser beam (9 s) · <b>G</b> 8 Grenades with blast damage.
+          Catch them by flying into them on the ring. Shoot one and it's gone.</td></tr>
+        <tr><th>Lives</th><td>3. You lose one, and your power-up, when an enemy reaches the ring where your ship is.</td></tr>
       </table>
     </div>
 

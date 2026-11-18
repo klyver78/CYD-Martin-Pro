@@ -31,7 +31,7 @@ static void renderFrame() {
   }
 }
 
-// ---- touch: held side -> turn direction; new press -> tap
+// ---- touch: left third = orbit CCW, right third = orbit CW, middle third = fire; new press = tap
 static bool     touchDown = false;
 static uint32_t lastTouchMs = 0;
 static int      heldX = 0, heldY = 0;
@@ -50,7 +50,11 @@ static void readTouch(GameInput& in) {
   } else if (touchDown && now - lastTouchMs > 80) {
     touchDown = false;                     // released (short gaps are ignored - resistive touch)
   }
-  if (touchDown) in.turn = heldX < SCR_W / 2 ? -1 : 1;
+  if (touchDown) {
+    if (heldX < SCR_W / 3) in.turn = -1;
+    else if (heldX >= SCR_W * 2 / 3) in.turn = 1;
+    else in.fire = true;
+  }
 }
 
 void setup() {

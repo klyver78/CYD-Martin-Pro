@@ -30,7 +30,8 @@ One folder per experiment; everything (code, comments, UI) in English.
 ## space-game (Star Ring)
 - Single env `game`, TFT_eSPI at 80 MHz, 6 x 320x40 static strip buffers pushed with DMA (startWrite held).
 - `src/game.cpp` = all logic + rendering, hardware-free (polar coords around CX/CY, ring radius R);
-  `main.cpp` feeds `GameInput` (held side -> turn, press -> tap) and dt. `net.cpp` = Improv + OTA
+  `main.cpp` feeds `GameInput` (left/right third -> turn, middle third -> fire, press -> tap) and dt.
+  Enemies + power-ups are shielded inside `IMMUNE_R`; weapons GUN/SPREAD/LASER/GRENADE from power-ups. `net.cpp` = Improv + OTA
   (compares `roms.json` version with FW_VERSION_SEM, installs `roms/game/firmware.bin`).
 - `src/canvas.h` is a copy of animation-experiment's (+ fillTriangle); keep fixes in sync.
 - Screenshots: `tools/sim/render.sh` runs game.cpp with scripted input -> `docs/*.png`.

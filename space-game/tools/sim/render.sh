@@ -2,7 +2,7 @@
 # Render title / gameplay / game-over screenshots on a PC -> docs/*.png. Needs g++, python3 + Pillow.
 set -e
 cd "$(dirname "$0")"
-mkdir -p out ../../docs
+rm -rf out ../../docs/*.png; mkdir -p out ../../docs
 g++ -std=gnu++17 -O2 -w -Imock -I../../src -o out/sim sim.cpp
 ./out/sim
 python3 - <<'PY'

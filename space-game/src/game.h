@@ -5,7 +5,8 @@
 #include "canvas.h"
 
 struct GameInput {
-  int8_t turn = 0;        // -1 = counter-clockwise (left half held), +1 = clockwise (right half)
+  int8_t turn = 0;        // -1 = counter-clockwise (left third held), +1 = clockwise (right third)
+  bool   fire = false;    // middle third held
   bool   tap  = false;    // a new press this frame (title / game over)
   int    tapX = 0, tapY = 0;
 };
