@@ -1,0 +1,4 @@
+_site/
+**/.pio/
+**/tools/sim/out/
+**/src/build_version.h

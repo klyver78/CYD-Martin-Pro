@@ -1,0 +1,31 @@
+{
+  "id": "animation-experiment",
+  "title": "Animation experiment",
+  "summary": "How fast can the CYD animate? FPS tests with TFT_eSPI, LovyanGFX and LVGL.",
+  "roms": [
+    {
+      "id": "tftespi",
+      "env": "tftespi",
+      "name": "TFT_eSPI",
+      "desc": "40 MHz SPI, DMA. Raw/sprites/effects/UI"
+    },
+    {
+      "id": "tftespi80",
+      "env": "tftespi80",
+      "name": "TFT_eSPI 80MHz",
+      "desc": "Same scenes at 80 MHz SPI. May glitch."
+    },
+    {
+      "id": "lovyangfx",
+      "env": "lovyangfx",
+      "name": "LovyanGFX",
+      "desc": "Same scenes + live SPI clock sweep 10-80 MHz"
+    },
+    {
+      "id": "lvgl",
+      "env": "lvgl",
+      "name": "LVGL 8.3",
+      "desc": "Widgets, meter, list + stress tests"
+    }
+  ]
+}
