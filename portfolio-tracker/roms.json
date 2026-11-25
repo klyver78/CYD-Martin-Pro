@@ -1,0 +1,16 @@
+{
+  "id": "portfolio-tracker",
+  "title": "Portfolio tracker",
+  "summary": "Tracks a portfolio of securities: two-week value chart, total value, and a scrollable list of holdings with today's change. Holdings come from portfolio.json.",
+  "site_files": [
+    "portfolio.json"
+  ],
+  "roms": [
+    {
+      "id": "tracker",
+      "env": "tracker",
+      "name": "Portfolio tracker",
+      "desc": "Live portfolio from portfolio.json, 80 MHz SPI"
+    }
+  ]
+}

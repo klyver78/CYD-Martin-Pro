@@ -9,6 +9,7 @@ lives in its own folder, has its own web flasher on GitHub Pages and can contain
 |---|---|
 | [animation-experiment](animation-experiment/) | Realistic frame rates with TFT_eSPI, LovyanGFX and LVGL: raw throughput, sprites, full-frame effects, UI animation. Switch ROMs over the air from the device. |
 | [space-game](space-game/) | *Star Ring*: a space-game prototype. Orbit a ring, shoot two kinds of shielded enemies flying out of the starfield, catch Spread/Laser/Grenade power-ups. TFT_eSPI 80 MHz. |
+| [portfolio-tracker](portfolio-tracker/) | Tracks a portfolio of securities: total value, a two-week value chart and a scrollable list of holdings with today's change. Holdings come from a `portfolio.json` on Pages; prices from the Yahoo Finance API. |
 
 ## How the pipeline works
 
@@ -33,4 +34,5 @@ Pull requests build too, but they don't deploy.
 
 Create a folder with a PlatformIO project, a `VERSION` file, a `roms.json` (see
 `animation-experiment/roms.json`) and `web/index.html`. The pipeline picks it up
-automatically.
+automatically. A `"site_files"` list in `roms.json` publishes extra files next to the flasher —
+that is how `portfolio-tracker` serves the `portfolio.json` its firmware reads at boot.

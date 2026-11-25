@@ -1,0 +1,14 @@
+{
+  "_comment": "Your portfolio. The tracker fetches this file from GitHub Pages at boot, so editing it here and pushing to main is enough - no reflash. Each holding needs a ticker (Yahoo Finance symbol, e.g. NOVO-B.CO, AAPL, VWCE.DE) or an isin, plus qty. name and currency are optional; giving currency saves one API call per holding on first boot. NOTE: this repository is public, so whatever you put here is public too.",
+  "base": "DKK",
+  "holdings": [
+    { "isin": "DK0060534915", "qty": 40, "name": "Novo Nordisk B" },
+    { "ticker": "DANSKE.CO", "qty": 25, "name": "Danske Bank", "currency": "DKK" },
+    { "ticker": "MAERSK-B.CO", "qty": 1, "name": "Maersk B", "currency": "DKK" },
+    { "ticker": "AAPL", "qty": 12, "name": "Apple", "currency": "USD" },
+    { "ticker": "MSFT", "qty": 8, "name": "Microsoft", "currency": "USD" },
+    { "ticker": "NVDA", "qty": 15, "name": "Nvidia", "currency": "USD" },
+    { "ticker": "VWCE.DE", "qty": 30, "name": "VWRL All-World", "currency": "EUR" },
+    { "ticker": "IWDA.AS", "qty": 20, "name": "iShares World", "currency": "EUR" }
+  ]
+}

@@ -7,6 +7,7 @@ in roms.json the PlatformIO env is built, and the site gets:
   <experiment>/index.html                  web flasher (from <experiment>/web/index.html)
   <experiment>/roms.json                   ROM list read by the device's OTA ROM switcher
   <experiment>/manifest-<rom>.json         esp-web-tools manifest per ROM
+  <experiment>/<site_files>                 extra files listed in roms.json ("site_files")
   <experiment>/roms/<rom>/merged.bin       factory image for the web flasher (offset 0)
   <experiment>/roms/<rom>/firmware.bin     app-only image for OTA
   index.html + experiments.json            overview of all experiments
@@ -75,6 +76,13 @@ def build_experiment(exp: Path, skip_build: bool):
     (out / "roms.json").write_text(json.dumps(
         {"experiment": meta["id"], "title": meta["title"], "version": version, "roms": site_roms}, indent=2))
     shutil.copy(exp / "web" / "index.html", out / "index.html")
+    # Extra files the experiment wants served next to its flasher, e.g. a config file the
+    # device fetches at boot. Listed as "site_files" in roms.json.
+    for name in meta.get("site_files", []):
+        src = exp / name
+        if not src.is_file():
+            sys.exit(f"{exp.name}: site_files lists {name}, which does not exist")
+        shutil.copy(src, out / Path(name).name)
     if (exp / "docs").is_dir():
         shutil.copytree(exp / "docs", out / "docs", dirs_exist_ok=True)
     return {"id": meta["id"], "path": exp.name, "title": meta["title"], "summary": meta.get("summary", ""),
