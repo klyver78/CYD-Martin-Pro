@@ -43,6 +43,8 @@ One folder per experiment; everything (code, comments, UI) in English.
   `tools/sim` runs them on a PC); `src/net.cpp` = Improv + HTTPS fetches + OTA; `main.cpp` = glue.
 - Holdings come from `portfolio.json`, published to Pages via `site_files` in `roms.json` and
   fetched by the device on every refresh - editing it needs no reflash. It is public, like the repo.
+- `src/config.h` = user settings (`PORTFOLIO_URL`, defaulting to the Pages copy; `REFRESH_MS`);
+  `board.h` stays hardware + OTA only. Settings are `#ifndef`-guarded so build flags can override.
 - Prices: one Yahoo Finance `spark` call per refresh covers every symbol plus the FX pairs
   (`<CUR><BASE>=X`). `search` (ISIN -> symbol) and `chart` (symbol -> currency) run only on a cold
   boot and are cached in NVS ("pftrack"). No API key.

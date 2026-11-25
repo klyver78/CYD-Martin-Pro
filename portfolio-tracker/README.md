@@ -46,8 +46,14 @@ changing your portfolio is a commit to `main` — no reflash.
 | `base` | The currency everything is converted to (default `DKK`). |
 
 > ⚠️ This repository is public, so whatever you put in `portfolio.json` is public too. The file
-> that ships here is an example — replace it with your own holdings, or fork the repo and point
-> `PAGES_BASE` in `src/board.h` at your fork.
+> that ships here is an example — replace it with your own holdings.
+
+### Hosting `portfolio.json` somewhere else
+
+Set `PORTFOLIO_URL` in [`src/config.h`](src/config.h) to any HTTPS URL that returns the file,
+bump `VERSION` and push to `main`; devices pick it up with **UPDATE FW**. The URL is compiled
+into the firmware, so it lives in the repo like everything else. The refresh interval
+(`REFRESH_MS`) is set in the same file.
 
 ## Where the numbers come from
 
@@ -70,7 +76,7 @@ a symbol's quote currency.
   holiday does not make the portfolio dip.
 - **Today's change** is the API's own `fulldayChangePercent` per holding; for the portfolio it is
   the step between the last two days of the grid, so it matches the chart.
-- **Refresh** every 5 minutes, or from the status screen. Fetches block the UI for a few
+- **Refresh** every 5 minutes (`REFRESH_MS` in `src/config.h`), or from the status screen. Fetches block the UI for a few
   seconds; the **i** button blinks while one runs.
 
 ## Code layout
@@ -80,6 +86,7 @@ a symbol's quote currency.
 | `src/portfolio.cpp` | The model: parsing, the FX/day-grid maths, the totals. Hardware-free. |
 | `src/ui.cpp` | Every screen, drawn through `Canvas` only. Hardware-free. |
 | `src/net.cpp` | Improv Wi-Fi, the HTTPS fetches, OTA. |
+| `src/config.h` | User settings: where `portfolio.json` is fetched from, refresh interval. |
 | `src/main.cpp` | TFT + touch + DMA strips, and the refresh loop. |
 | `src/jsonlite.h` | A read-only JSON scanner — no allocation, no library, runs on the PC too. |
 | `src/api_certs.h` | Root CAs for HTTPS. Regenerate with `python3 tools/gen_certs.py > src/api_certs.h`. |

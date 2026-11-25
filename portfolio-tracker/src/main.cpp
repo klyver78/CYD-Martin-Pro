@@ -9,6 +9,7 @@
 #include <XPT2046_Touchscreen.h>
 
 #include "board.h"
+#include "config.h"
 #include "net.h"
 #include "portfolio.h"
 #include "ui.h"
@@ -65,10 +66,12 @@ static uint32_t lastFetchMs = 0;        // 0 = never
 static uint32_t nextTryMs = 0;
 static bool     havePortfolio = false;
 
-static void refresh(bool reloadPortfolio) {
+// Re-reads portfolio.json every time (so edits show up without a reflash), then the prices.
+// If portfolio.json cannot be fetched, the holdings we already have are kept.
+static void refresh() {
   uiSetBusy(true);
   renderFrame();
-  if (reloadPortfolio || !havePortfolio) havePortfolio = netLoadPortfolio();
+  if (netLoadPortfolio()) havePortfolio = true;
   if (havePortfolio) {
     netResolveSymbols();
     if (netFetchPrices()) {
@@ -102,7 +105,7 @@ void setup() {
 
   netSetup("cyd-portfolio-tracker", FW_VERSION_SEM, renderFrame);
   Serial.printf("PORTFOLIO TRACKER v%s, SPI %u Hz\n", FW_VERSION_SEM, (unsigned)SPI_FREQUENCY);
-  refresh(true);
+  refresh();
 }
 
 void loop() {
@@ -117,13 +120,13 @@ void loop() {
   uiSetAge(lastFetchMs ? (int)((millis() - lastFetchMs) / 1000) : -1);
 
   switch (uiTakeAction()) {
-    case UA_REFRESH: refresh(true); lastUs = micros(); break;
+    case UA_REFRESH: refresh(); lastUs = micros(); break;
     case UA_UPDATE:  netCheckAndUpdate(FW_VERSION_SEM); lastUs = micros(); break;
     default: break;
   }
 
   if ((int32_t)(millis() - nextTryMs) >= 0) {
-    refresh(false);
+    refresh();
     lastUs = micros();
   }
 

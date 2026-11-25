@@ -19,10 +19,9 @@
 #define TOUCH_FLIP_X 0       // set to 1 if left/right are mirrored
 #define TOUCH_FLIP_Y 0
 
-// ---- GitHub Pages: portfolio definition + OTA ----
+// ---- GitHub Pages: OTA (portfolio.json location and refresh interval are in config.h) ----
 #define PAGES_BASE     "https://martindamp.github.io/CYD-experiments/portfolio-tracker/"
 #define ROMS_URL       PAGES_BASE "roms.json"
-#define PORTFOLIO_URL  PAGES_BASE "portfolio.json"
 #define OTA_BIN_PATH   "roms/tracker/firmware.bin"
 
 // ---- price API (Yahoo Finance, no API key) ----
@@ -32,8 +31,6 @@
 #define API_SPARK_PATH "/v8/finance/spark?interval=1d&range=1mo&symbols="
 #define API_CHART_PATH "/v8/finance/chart/"
 #define API_SEARCH_PATH "/v1/finance/search?quotesCount=4&newsCount=0&q="
-
-#define REFRESH_MS     (5 * 60 * 1000UL)   // re-fetch prices this often
 
 // Byte-swapped RGB565 (wire order), so strips can be DMA'd as-is.
 static inline uint16_t rgb565(uint8_t r, uint8_t g, uint8_t b) {

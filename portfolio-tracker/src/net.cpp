@@ -21,6 +21,7 @@
 
 #include "api_certs.h"
 #include "board.h"
+#include "config.h"
 #include "jsonlite.h"
 #include "portfolio.h"
 #include "ui.h"
@@ -119,18 +120,33 @@ static String httpsGet(const String& url) {
 }
 
 // ===================================================================== portfolio.json
+// FNV-1a: cheap way to tell whether the file changed since the last refresh.
+static uint32_t fnv1a(const char* s) {
+  uint32_t h = 2166136261u;
+  for (; *s; ++s) h = (h ^ (uint8_t)*s) * 16777619u;
+  return h;
+}
+static uint32_t lastPortfolioHash = 0;
+
 bool netLoadPortfolio() {
   if (!netOnline()) return false;
   status("Loading portfolio.json...");
-  String body = httpsGet(String(PORTFOLIO_URL) + "?t=" + millis());
+  String url = PORTFOLIO_URL;
+  url += strchr(PORTFOLIO_URL, '?') ? "&t=" : "?t=";          // cache-buster, query-safe
+  url += String((unsigned long)millis());
+  String body = httpsGet(url);
   if (!body.length()) {
     status("Could not load portfolio.json");
     return false;
   }
+  uint32_t hash = fnv1a(body.c_str());
+  if (hash == lastPortfolioHash && pf.nh) return true;    // unchanged: keep holdings + prices
   if (!pfParsePortfolio(body.c_str())) {
+    lastPortfolioHash = 0;
     status("portfolio.json has no usable holdings");
     return false;
   }
+  lastPortfolioHash = hash;
   statusf("%d holdings, base %s", pf.nh, pf.base);
   return true;
 }
