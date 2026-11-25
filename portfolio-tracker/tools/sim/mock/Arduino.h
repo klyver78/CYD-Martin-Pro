@@ -1,5 +1,6 @@
 #pragma once
 #define ARDUINO 10819
+#define LIST_H   // leaked by the ESP32 core (FreeRTOS list.h include guard); keeps the sim honest
 #include <cstdint>
 #include <cstring>
 #include <cmath>

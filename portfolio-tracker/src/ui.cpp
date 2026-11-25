@@ -20,12 +20,12 @@ static const uint16_t C_DOWN  = rgbBE(238, 88, 88);
 static const uint16_t C_DOWND = rgbBE(58, 22, 26);
 
 // ------------------------------------------------------------------ layout
-static const int HEAD_H  = 42;
-static const int CHART_Y = HEAD_H, CHART_H = 84;
-static const int LIST_Y  = CHART_Y + CHART_H + 2;          // 128
-static const int LIST_H  = SCR_H - LIST_Y;                 // 112
-static const int ROW_H   = 34;
-static const int BAR_H   = 26;                             // top bar of the sub-views
+static const int UI_HEAD_H  = 42;
+static const int UI_CHART_Y = UI_HEAD_H, UI_CHART_H = 84;
+static const int UI_LIST_Y  = UI_CHART_Y + UI_CHART_H + 2;          // 128
+static const int UI_LIST_H  = SCR_H - UI_LIST_Y;                 // 112
+static const int UI_ROW_H   = 34;
+static const int UI_BAR_H   = 26;                             // top bar of the sub-views
 
 // ------------------------------------------------------------------ state
 static UiView   view = UV_LOADING;
@@ -171,13 +171,13 @@ static void chart(Canvas& c, int x, int y, int w, int h, const float* v, int fro
 
 // ------------------------------------------------------------------ overview
 static float listMaxScroll() {
-  float m = (float)pf.nh * ROW_H - LIST_H;
+  float m = (float)pf.nh * UI_ROW_H - UI_LIST_H;
   return m > 0 ? m : 0;
 }
 
 static void drawHeader(Canvas& c) {
-  c.fillRect(0, 0, SCR_W, HEAD_H, C_CARD);
-  c.fillRect(0, HEAD_H - 1, SCR_W, 1, C_LINE);
+  c.fillRect(0, 0, SCR_W, UI_HEAD_H, C_CARD);
+  c.fillRect(0, UI_HEAD_H - 1, SCR_W, 1, C_LINE);
 
   char label[24];
   snprintf(label, sizeof label, "TOTAL %s", pf.base);
@@ -201,9 +201,9 @@ static void drawHeader(Canvas& c) {
 
 static void drawRow(Canvas& c, int i, int y) {
   const Holding& h = pf.h[i];
-  c.fillRect(0, y, SCR_W, ROW_H, (i & 1) ? C_ROW : C_BG);
-  c.fillRect(0, y + ROW_H - 1, SCR_W, 1, C_LINE);
-  c.fillRect(0, y + 2, 3, ROW_H - 4, h.priced ? signCol(h.dayPct) : C_LINE);
+  c.fillRect(0, y, SCR_W, UI_ROW_H, (i & 1) ? C_ROW : C_BG);
+  c.fillRect(0, y + UI_ROW_H - 1, SCR_W, 1, C_LINE);
+  c.fillRect(0, y + 2, 3, UI_ROW_H - 4, h.priced ? signCol(h.dayPct) : C_LINE);
 
   textClip(c, 10, y + 4, h.name[0] ? h.name : h.symbol, C_FG, 2, 150);
   char sub[40];
@@ -225,14 +225,14 @@ static void drawRow(Canvas& c, int i, int y) {
 
 static void drawList(Canvas& c) {
   // Rows first: a row scrolled past the top of the list is then painted over by the chart,
-  // the divider and the header, which together cover every pixel above LIST_Y.
+  // the divider and the header, which together cover every pixel above UI_LIST_Y.
   int off = (int)scroll;
-  int first = off / ROW_H;
+  int first = off / UI_ROW_H;
   if (first < 0) first = 0;
   for (int i = first; i < pf.nh; ++i) {
-    int y = LIST_Y + i * ROW_H - off;
+    int y = UI_LIST_Y + i * UI_ROW_H - off;
     if (y >= c.y0 + c.h) break;
-    if (y + ROW_H <= c.y0) continue;
+    if (y + UI_ROW_H <= c.y0) continue;
     drawRow(c, i, y);
   }
 
@@ -240,27 +240,27 @@ static void drawList(Canvas& c) {
   bool twoWeeks = pfWindow(14, from, to);
   if (!twoWeeks && pf.ngrid >= 2) { from = 0; to = pf.ngrid - 1; }
   if (twoWeeks || pf.ngrid >= 2) {
-    chart(c, 0, CHART_Y, SCR_W, CHART_H, pf.total, from, to, true);
-    c.text(6, CHART_Y + 4, twoWeeks ? "2 WEEKS" : "ALL DATA", C_MUTE, 1, C_BG);
+    chart(c, 0, UI_CHART_Y, SCR_W, UI_CHART_H, pf.total, from, to, true);
+    c.text(6, UI_CHART_Y + 4, twoWeeks ? "2 WEEKS" : "ALL DATA", C_MUTE, 1, C_BG);
     char t[24];
     float a = pf.total[from];
     if (a > 0) {
       fmtPct(t, sizeof t, (pf.total[to] / a - 1) * 100.0f);
-      c.text(6, CHART_Y + CHART_H - 12, t, signCol(pf.total[to] - a), 1, C_BG);
+      c.text(6, UI_CHART_Y + UI_CHART_H - 12, t, signCol(pf.total[to] - a), 1, C_BG);
     }
   } else {
-    chart(c, 0, CHART_Y, SCR_W, CHART_H, pf.total, 0, 0, false);
+    chart(c, 0, UI_CHART_Y, SCR_W, UI_CHART_H, pf.total, 0, 0, false);
   }
   if (!pf.nh)
-    c.text((SCR_W - Canvas::textW("No holdings in portfolio.json", 1)) / 2, LIST_Y + 30,
+    c.text((SCR_W - Canvas::textW("No holdings in portfolio.json", 1)) / 2, UI_LIST_Y + 30,
            "No holdings in portfolio.json", C_MUTE, 1);
-  c.fillRect(0, LIST_Y - 2, SCR_W, 2, C_LINE);
+  c.fillRect(0, UI_LIST_Y - 2, SCR_W, 2, C_LINE);
   drawHeader(c);
 
-  if (pf.nh * ROW_H > LIST_H) {                              // scrollbar
-    int th = LIST_H * LIST_H / (pf.nh * ROW_H);
-    int ty = LIST_Y + (int)(scroll / listMaxScroll() * (LIST_H - th));
-    c.fillRect(SCR_W - 3, LIST_Y, 3, LIST_H, C_ROW);
+  if (pf.nh * UI_ROW_H > UI_LIST_H) {                              // scrollbar
+    int th = UI_LIST_H * UI_LIST_H / (pf.nh * UI_ROW_H);
+    int ty = UI_LIST_Y + (int)(scroll / listMaxScroll() * (UI_LIST_H - th));
+    c.fillRect(SCR_W - 3, UI_LIST_Y, 3, UI_LIST_H, C_ROW);
     c.fillRect(SCR_W - 3, ty, 3, th, C_LINE);
   }
 }
@@ -269,16 +269,16 @@ static void drawList(Canvas& c) {
 static void drawDetail(Canvas& c) {
   const Holding& h = pf.h[sel];
   c.clear(C_BG);
-  c.fillRect(0, 0, SCR_W, BAR_H, C_CARD);
-  c.fillRect(0, BAR_H - 1, SCR_W, 1, C_LINE);
-  button(c, 2, 2, 52, BAR_H - 5, "BACK", false);
+  c.fillRect(0, 0, SCR_W, UI_BAR_H, C_CARD);
+  c.fillRect(0, UI_BAR_H - 1, SCR_W, 1, C_LINE);
+  button(c, 2, 2, 52, UI_BAR_H - 5, "BACK", false);
   c.text(62, 6, h.symbol[0] ? h.symbol : h.key, C_ACC, 2);
-  button(c, SCR_W - 76, 2, 36, BAR_H - 5, "2W", detDays == 14);
-  button(c, SCR_W - 38, 2, 36, BAR_H - 5, "1M", detDays != 14);
+  button(c, SCR_W - 76, 2, 36, UI_BAR_H - 5, "2W", detDays == 14);
+  button(c, SCR_W - 38, 2, 36, UI_BAR_H - 5, "1M", detDays != 14);
 
-  textClip(c, 8, BAR_H + 4, h.name[0] ? h.name : h.symbol, C_FG, 2, SCR_W - 16);
+  textClip(c, 8, UI_BAR_H + 4, h.name[0] ? h.name : h.symbol, C_FG, 2, SCR_W - 16);
 
-  int cy = BAR_H + 24, ch = 94;
+  int cy = UI_BAR_H + 24, ch = 94;
   if (h.priced && h.n >= 2) {
     long cutoff = h.day[h.n - 1] - (detDays - 1);
     int from = h.n - 1;
@@ -341,13 +341,13 @@ static void drawDetail(Canvas& c) {
 // ------------------------------------------------------------------ status / settings
 static void drawInfo(Canvas& c) {
   c.clear(C_BG);
-  c.fillRect(0, 0, SCR_W, BAR_H, C_CARD);
-  c.fillRect(0, BAR_H - 1, SCR_W, 1, C_LINE);
-  button(c, 2, 2, 52, BAR_H - 5, "BACK", false);
+  c.fillRect(0, 0, SCR_W, UI_BAR_H, C_CARD);
+  c.fillRect(0, UI_BAR_H - 1, SCR_W, 1, C_LINE);
+  button(c, 2, 2, 52, UI_BAR_H - 5, "BACK", false);
   c.text(62, 6, "STATUS", C_ACC, 2);
 
   char t[80];
-  int y = BAR_H + 8;
+  int y = UI_BAR_H + 8;
   snprintf(t, sizeof t, "Firmware   v%s", gVersion);
   c.text(8, y, t, C_FG, 1); y += 14;
   snprintf(t, sizeof t, "Holdings   %d of %d priced", pf.nPriced, pf.nh);
@@ -430,22 +430,22 @@ static void tap(int x, int y) {
       view = UV_INFO;
       break;
     case UV_LIST:
-      if (y < HEAD_H) {
+      if (y < UI_HEAD_H) {
         if (x >= SCR_W - 30) view = UV_INFO;
-      } else if (y >= LIST_Y) {
-        int i = (y - LIST_Y + (int)scroll) / ROW_H;
+      } else if (y >= UI_LIST_Y) {
+        int i = (y - UI_LIST_Y + (int)scroll) / UI_ROW_H;
         if (i >= 0 && i < pf.nh) { sel = i; detDays = 14; view = UV_DETAIL; }
       }
       break;
     case UV_DETAIL:
-      if (y < BAR_H) {
-        if (hit(x, y, 2, 2, 52, BAR_H - 5)) view = UV_LIST;
-        else if (hit(x, y, SCR_W - 76, 2, 36, BAR_H - 5)) detDays = 14;
-        else if (hit(x, y, SCR_W - 38, 2, 36, BAR_H - 5)) detDays = 31;
+      if (y < UI_BAR_H) {
+        if (hit(x, y, 2, 2, 52, UI_BAR_H - 5)) view = UV_LIST;
+        else if (hit(x, y, SCR_W - 76, 2, 36, UI_BAR_H - 5)) detDays = 14;
+        else if (hit(x, y, SCR_W - 38, 2, 36, UI_BAR_H - 5)) detDays = 31;
       }
       break;
     case UV_INFO:
-      if (hit(x, y, 2, 2, 52, BAR_H - 5)) view = pf.ngrid ? UV_LIST : UV_LOADING;
+      if (hit(x, y, 2, 2, 52, UI_BAR_H - 5)) view = pf.ngrid ? UV_LIST : UV_LOADING;
       else if (hit(x, y, 8, SCR_H - 36, 140, 28)) pending = UA_REFRESH;
       else if (hit(x, y, SCR_W - 148, SCR_H - 36, 140, 28)) pending = UA_UPDATE;
       break;

@@ -148,7 +148,7 @@ int main() {
   save("list");
 
   uiSetView(UV_LIST);                       // resets the scroll
-  tapAt(160, LIST_Y + 12);                  // first row
+  tapAt(160, UI_LIST_Y + 12);                  // first row
   if (uiView() != UV_DETAIL) { fprintf(stderr, "tap did not open the detail view\n"); return 1; }
   printf("detail view: %s\n", pf.h[uiSelected()].name);
   save("detail");
