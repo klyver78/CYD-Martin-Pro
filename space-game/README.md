@@ -13,7 +13,7 @@ whole frame is rendered in 320×40 strips and sent with double-buffered DMA.
 
 ## Install
 
-👉 **Web flasher: <https://martindamp.github.io/CYD-experiments/space-game/>**
+👉 **Web flasher: <https://klyver78.github.io/CYD-Martin-Pro/space-game/>**
 
 Install it, enter your Wi-Fi when the flasher asks (only used for updates), and tap the screen
 to start. **UPDATE** on the title screen checks GitHub Pages and installs a newer version over

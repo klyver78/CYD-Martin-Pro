@@ -9,7 +9,7 @@ device.
 
 ## Install
 
-👉 **Web flasher: <https://martindamp.github.io/CYD-experiments/animation-experiment/>**
+👉 **Web flasher: <https://klyver78.github.io/CYD-Martin-Pro/animation-experiment/>**
 
 1. Open the flasher in **Chrome** or **Edge** on a computer and plug in the CYD by USB.
 2. Pick a ROM, click **Install** and choose the serial port.

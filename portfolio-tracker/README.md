@@ -15,7 +15,7 @@ strips and sent with double-buffered DMA.
 
 ## Install
 
-👉 **Web flasher: <https://martindamp.github.io/CYD-experiments/portfolio-tracker/>**
+👉 **Web flasher: <https://klyver78.github.io/CYD-Martin-Pro/portfolio-tracker/>**
 
 Install it and enter your Wi-Fi when the flasher asks. On the first boot the tracker fetches
 `portfolio.json` and the prices and then shows the overview. The **i** button opens the status

@@ -29,7 +29,7 @@
 #define TOUCH_FLIP_Y 0     // set to 1 if up/down taps are mirrored
 
 // ---- GitHub Pages: ROM list + OTA images ----
-#define PAGES_BASE   "https://martindamp.github.io/CYD-experiments/animation-experiment/"
+#define PAGES_BASE   "https://klyver78.github.io/CYD-Martin-Pro/animation-experiment/"
 #define ROMS_URL     PAGES_BASE "roms.json"
 
 // Strip height used for banded full-frame rendering. 320 x 40 x 2 bytes = 25.6 KB per buffer;

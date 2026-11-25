@@ -20,7 +20,7 @@
 #define TOUCH_FLIP_Y 0
 
 // ---- GitHub Pages: OTA (portfolio.json location and refresh interval are in config.h) ----
-#define PAGES_BASE     "https://martindamp.github.io/CYD-experiments/portfolio-tracker/"
+#define PAGES_BASE     "https://klyver78.github.io/CYD-Martin-Pro/portfolio-tracker/"
 #define ROMS_URL       PAGES_BASE "roms.json"
 #define OTA_BIN_PATH   "roms/tracker/firmware.bin"
 

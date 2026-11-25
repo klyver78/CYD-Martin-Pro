@@ -1,9 +1,9 @@
-# CYD-experiments
+# CYD-Martin-Pro
 
 Small experiments on the ESP32 **Cheap Yellow Display** (ESP32-2432S028R). Each experiment
 lives in its own folder, has its own web flasher on GitHub Pages and can contain several ROMs.
 
-👉 **All flashers: <https://martindamp.github.io/CYD-experiments/>**
+👉 **All flashers: <https://klyver78.github.io/CYD-Martin-Pro/>**
 
 | Experiment | What it tests |
 |---|---|

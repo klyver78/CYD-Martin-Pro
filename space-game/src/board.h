@@ -17,7 +17,7 @@
 #define TOUCH_FLIP_X 0       // set to 1 if left/right are mirrored
 
 // ---- GitHub Pages: OTA ----
-#define PAGES_BASE   "https://martindamp.github.io/CYD-experiments/space-game/"
+#define PAGES_BASE   "https://klyver78.github.io/CYD-Martin-Pro/space-game/"
 #define ROMS_URL     PAGES_BASE "roms.json"
 #define OTA_BIN_PATH "roms/game/firmware.bin"
 
