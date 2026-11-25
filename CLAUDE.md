@@ -1,4 +1,4 @@
-# CLAUDE.md — CYD-experiments
+# CLAUDE.md — CYD-Martin-Pro
 
 Experiments for the ESP32 "Cheap Yellow Display" (ESP32-2432S028R, landscape 320x240).
 One folder per experiment; everything (code, comments, UI) in English.
